@@ -17,9 +17,4 @@ public interface ClientUserDetails extends UserDetails {
   default boolean isCredentialsNonExpired() {
     return true;
   }
-
-  @Override
-  default boolean isEnabled() {
-    return true;
-  }
 }

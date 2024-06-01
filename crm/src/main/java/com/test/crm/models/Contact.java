@@ -1,8 +1,7 @@
 package com.test.crm.models;
 
-import jakarta.persistence.Basic;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import com.test.crm.models.client.Client;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,4 +21,8 @@ public class Contact extends BaseEntity {
 
   @Basic
   private String email;
+
+  @ManyToOne
+  @JoinColumn(name = "client_id", referencedColumnName = "id")
+  private Client client;
 }

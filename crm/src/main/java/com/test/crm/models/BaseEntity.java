@@ -9,7 +9,7 @@ import org.hibernate.annotations.UuidGenerator;
 @Setter
 @Getter
 @MappedSuperclass
-public class BaseEntity {
+public abstract class BaseEntity {
   @Id
   @UuidGenerator(style = UuidGenerator.Style.TIME)
   private String id;

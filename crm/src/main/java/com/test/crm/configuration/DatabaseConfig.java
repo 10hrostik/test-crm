@@ -30,9 +30,9 @@ public class DatabaseConfig {
     try (Connection connection = DriverManager.getConnection(connectionString, superUser, superPassword)) {
       if (checkIfDatabaseNotExists(connection)) {
         String query = """
-         CREATE DATABASE schoolify;
+         CREATE DATABASE crm;
          REVOKE ALL ON SCHEMA public FROM PUBLIC;
-         REVOKE ALL ON DATABASE schoolify FROM PUBLIC;
+         REVOKE ALL ON DATABASE crm FROM PUBLIC;
          """;
 
         Statement statement = connection.createStatement();
