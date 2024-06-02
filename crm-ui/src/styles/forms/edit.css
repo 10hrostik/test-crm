@@ -1,0 +1,222 @@
+.editPopUpHeader {
+    width: 100%;
+    height: 30%;
+    border-bottom: 2px solid black;
+}
+.editPopUpBody {
+    width: 100%;
+    height: 55%;
+    display: flex;
+    justify-content: center;
+    border-bottom: 2px solid black;
+}
+.editPopUpBottom {
+    width: 100%;
+    height: 14%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.editPhotoContainer {
+    height: 100%;
+    width: 42.5%;
+    border-right: 1px solid black;
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.mainUserPhotoLayout {
+    width: 115px;
+    height: 115px;
+    border: black solid 2px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.mainUserPhoto {
+    width: 115px;
+    height: 115px;
+    border-radius: 50%;
+}
+.editCredentialContainer {
+    height: 100%;
+    width: 57%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.editCredentialForm {
+    height: 100%;
+    width: 100%;
+    display: table;
+}
+.editBodyForm {
+    height: 100%;
+    width: 90%;
+    margin-top: 4%;
+}
+.editbirthDateInput,
+.editBodyCountryInput,
+.editBodyInput,
+.editCredentialInput,
+.editPhoneInput {
+    float: none;
+    background: transparent;
+    border: none;
+    height: 30px;
+    width: 100%;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+    text-align: center;
+    text-decoration: underline;
+}
+.editbirthDateInput,
+.editCredentialInput,
+.editPhoneInput {
+    height: 30px;
+    text-align: left;
+    margin-left: 15px;
+}
+.editbirthDateInput {
+    width: 85%;
+}
+.editBirthDateLabel,
+.editCredentialLabel,
+.editPhoneLabel {
+    height: 30px;
+    width: 100%;
+    font-size: 16px;
+    margin-left: 15px;
+    font-weight: 500;
+}
+.editBodyCountryInput,
+.editBodyInput {
+    text-align: left;
+    margin-bottom: 15px;
+    padding-left: 0;
+}
+#emailInput {
+    margin-bottom: 5px;
+}
+.editBodyLabel {
+    margin-top: 10px;
+    font-size: 16px;
+}
+.cancelEditButton {
+    width: 90px;
+    height: 35px;
+    background-color: transparent;
+    border: none;
+    color: #e56868;
+    border-radius: 10px;
+    font-size: 18px;
+    transition: background-color 0.4s ease;
+    margin: 25px;
+}
+.cancelEditButton:hover {
+    background-color : rgba(229, 104, 104, 0.4);
+    color: #a40000;
+}
+.confirmEditButton {
+    width: 90px;
+    height: 35px;
+    background-color: transparent;
+    border: none;
+    color: #4E6D8C;
+    font-size: 18px;
+    border-radius: 10px;
+    transition: background-color 0.4s ease;
+    margin: 25px;
+}
+.editBodyCountryInput {
+    margin-left: -4px;
+}
+.confirmEditButton:hover {
+    background-color: rgba(78, 109, 140, 0.4);
+    color: #142936;
+}
+.wrongEditInput {
+    color: #e56868;
+    font-size: 12px;
+    width: 100%;
+    display: block;
+    text-align: center;
+    opacity: 1;
+    transition: opacity 2s linear;
+}
+.wrongEditInput.hidden {
+    opacity: 1;
+}
+input[type="text"]::placeholder {
+    color: #111111;
+}
+.profileImageListPopUp {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(37, 37, 36, 0.7);
+    z-index: 5;
+    position: absolute;
+}
+.profileImagesListContainer {
+    height: 92%;
+    width: calc(100% - 55px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.arrowBlock {
+    height: 100%;
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.userProfileImageListBottom {
+    text-align: right;
+    width: 100%;
+    height: 8%;
+    display: flex;
+    justify-content: right;
+    align-items: center
+}
+.userProfileListImage {
+    height: 90%;
+    width: 40%;
+    border-radius: 3px;
+}
+.userProfileImageAuthor {
+    width: 33%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 17px;
+}
+.userProfileImageGallery {
+    width: 33%;
+    height: 100%;
+}
+.userProfileImageInteractPanel {
+    width: 33%;
+    height: 100%;
+    display: flex;
+    justify-content: right;
+}
+.userProfileGalleryImage {
+    margin-left: 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+.profileImagesCarouselContainer {
+    height: 92%;
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+.imageListContainer {
+    height: 92%;
+    width: 100%;
+    display: flex;
+}
