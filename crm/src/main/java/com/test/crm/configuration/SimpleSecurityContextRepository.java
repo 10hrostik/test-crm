@@ -10,10 +10,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.web.context.HttpRequestResponseHolder;
+import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SecurityContextRepository implements org.springframework.security.web.context.SecurityContextRepository {
+public class SimpleSecurityContextRepository implements SecurityContextRepository {
   @Autowired
   private AuthenticationManager authenticationManager;
 

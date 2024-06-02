@@ -4,8 +4,6 @@ import com.test.crm.models.BaseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 public abstract class BaseService<T extends BaseEntity> {
 
   public T getExistent(String id) {
@@ -18,10 +16,6 @@ public abstract class BaseService<T extends BaseEntity> {
   @Transactional
   public T save(T entity) {
     return getRepository().save(entity);
-  }
-
-  public List<T> saveAll(List<T> entities) {
-    return entities.stream().peek(this::save).toList();
   }
 
   public void delete(T entity) {

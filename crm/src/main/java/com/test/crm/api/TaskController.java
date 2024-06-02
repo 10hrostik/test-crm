@@ -18,8 +18,8 @@ public class TaskController {
   private final TaskService service;
 
   @PostMapping
-  public ResponseEntity<Task> create(@RequestBody @Valid Task task, @RequestParam(required = false) String clientId) {
-    return ResponseEntity.ok(service.save(task));
+  public ResponseEntity<Task> create(@RequestBody @Valid Task task, @RequestParam String clientId) {
+    return ResponseEntity.ok(service.create(task, clientId));
   }
 
   @GetMapping
@@ -35,6 +35,11 @@ public class TaskController {
   @PatchMapping
   public ResponseEntity<Task> updateStatus(@RequestBody @Valid UpdateTaskStatusRequest request) {
     return ResponseEntity.ok(service.updateStatus(request));
+  }
+
+  @PatchMapping("/assign")
+  public ResponseEntity<Task> assignTask(@RequestBody @Valid Task task, @RequestParam String contactId) {
+    return ResponseEntity.ok(service.assignTask(task, contactId));
   }
 
   @DeleteMapping("/{id}")

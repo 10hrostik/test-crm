@@ -8,8 +8,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service
@@ -24,7 +26,8 @@ public class ContactService extends BaseService<Contact> {
 
   public List<Contact> search(Map<String, Object> fields) {
     if (fields.containsKey(Contact_.ID)) {
-      return List.of(getExistent(fields.get(Contact_.ID).toString()));
+      Contact contact = getExistent(fields.get(Contact_.ID).toString());
+      return Objects.isNull(contact) ? Collections.emptyList() : List.of(contact);
     }
     return searchRepository.searchByFields(fields);
   }

@@ -5,7 +5,6 @@ import com.test.crm.repositories.TaskRepository;
 import com.test.crm.services.models.UpdateTaskStatusRequest;
 import com.test.crm.utils.TransactionUtils;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
@@ -17,27 +16,33 @@ import java.util.List;
 @Service
 public class TaskService extends BaseService<Task> {
 
+  private final ContactService contactService;
   private final TaskRepository repository;
   private final SimpMessagingTemplate messagingTemplate;
 
   @Transactional
-  public Task create(Task task, String assingeeId) {
-    if (StringUtils.isBlank(assingeeId)) {
-      return save(task);
-    }
-    task.setAssingeeId(assingeeId);
+  public Task create(Task task, String createdBy) {
+    task.setCreatedBy(createdBy);
     return save(task);
   }
 
   public List<Task> getAssingedTasks(String assingeeId) {
-    return repository.findAllByAssingeeId(assingeeId);
+    return repository.findAllByAssigneeId(assingeeId);
   }
 
   @Transactional
   public Task updateStatus(UpdateTaskStatusRequest request) {
     Task existent = getExistent(request.getId());
     existent.setStatus(request.getStatus());
-    TransactionUtils.afterCommit(() -> messagingTemplate.convertAndSend("/task", existent));
+    TransactionUtils.afterCommit(() -> messagingTemplate.convertAndSend("/status", existent));
+    return existent;
+  }
+
+  @Transactional
+  public Task assignTask(Task task, String contactId) {
+    Task existent = getExistent(task.getId());
+    existent.setAssignee(contactService.getExistent(contactId));
+    TransactionUtils.afterCommit(() -> messagingTemplate.convertAndSend("/assign", existent));
     return existent;
   }
 

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Component
 public class CrmAuthenticationManager implements AuthenticationManager {
@@ -29,11 +28,9 @@ public class CrmAuthenticationManager implements AuthenticationManager {
     }
     if (username != null && jwtProvider.validateToken(authToken)) {
       Claims claims = jwtProvider.getClaimsFromToken(authToken);
-      List<List<Map<String, String>>> role = claims.get("role", List.class);
+      List<String> roles = claims.get("role", List.class);
       List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-      for (List<Map<String, String>> str : role) {
-        authorities.add(new SimpleGrantedAuthority(str.getFirst().get("authority")));
-      }
+      roles.forEach(role -> authorities.add(new SimpleGrantedAuthority(role)));
       return new UsernamePasswordAuthenticationToken(
           username,
           null,

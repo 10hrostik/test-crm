@@ -5,13 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -24,18 +21,19 @@ import java.util.List;
 @EnableWebSecurity
 public class WebSecurityConfig {
   @Autowired
-  private PasswordEncoder passwordEncoder;
-
-  @Autowired
   private CrmAuthenticationManager authenticationManager;
+  @Autowired
+  private SimpleSecurityContextRepository repository;
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.csrf(AbstractHttpConfigurer::disable)
         .cors(corsConfigurer -> corsConfigurer.configurationSource(corsConfigurationSource()))
         .formLogin(AbstractHttpConfigurer::disable)
-        .authorizeHttpRequests(registry -> registry.requestMatchers("api/secured/**").authenticated()
-            .requestMatchers("api/public/**").permitAll())
+        .authenticationManager(authenticationManager)
+        .securityContext(configurer -> configurer.securityContextRepository(repository))
+        .authorizeHttpRequests(registry -> registry.requestMatchers("/secured/**").authenticated()
+            .requestMatchers("/public/**").permitAll())
         .logout(AbstractHttpConfigurer::disable)
         .headers(Customizer.withDefaults())
         .httpBasic(Customizer.withDefaults());
@@ -54,14 +52,6 @@ public class WebSecurityConfig {
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", configuration);
     return source;
-  }
-
-  @Bean
-  public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
-    return http.getSharedObject(AuthenticationManagerBuilder.class)
-        .parentAuthenticationManager(authenticationManager)
-        .userDetailsService(authenticationService())
-        .passwordEncoder(passwordEncoder).and().build();
   }
 
   @Bean

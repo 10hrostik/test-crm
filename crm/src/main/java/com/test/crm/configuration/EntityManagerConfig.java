@@ -46,7 +46,7 @@ public class EntityManagerConfig {
         .build();
   }
 
-  @Bean
+  @Bean(name = "transactionManager")
   public JpaTransactionManager jpaTransactionManager() {
     JpaTransactionManager transactionManager = new JpaTransactionManager();
     transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());

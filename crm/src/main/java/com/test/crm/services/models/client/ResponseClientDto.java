@@ -9,7 +9,6 @@ import lombok.Setter;
 @Setter
 public class ResponseClientDto extends BaseClientDto {
   private String id;
-  private String username;
   private String companyName;
   private String branch;
   private String token;

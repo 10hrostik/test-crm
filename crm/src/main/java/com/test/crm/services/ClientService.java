@@ -20,10 +20,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
+import static com.test.crm.exceptions.ErrorMessages.INVALID_CREDENTIALS;
 import static com.test.crm.exceptions.ErrorMessages.USERNAME_ALREADY_EXISTS;
 
 @Service
@@ -39,12 +38,12 @@ public class ClientService extends BaseService<Client> implements UserDetailsSer
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     return Optional.ofNullable(repository.findByUsernameAndEnabled(username, true))
-        .orElseThrow(() -> new UsernameNotFoundException(username));
+        .orElseThrow(() -> new UsernameNotFoundException(INVALID_CREDENTIALS));
   }
 
   public ResponseClientDto login(String username, String password) {
-    Client client = Optional.ofNullable(repository.findByUsernameAndPassword(username, password))
-        .orElseThrow(() -> new UsernameNotFoundException(username));
+    Client client = Optional.ofNullable(repository.findByUsernameAndPasswordAndEnabled(username, passwordEncoder.encode(password), true))
+        .orElseThrow(() -> new UsernameNotFoundException(INVALID_CREDENTIALS));
     ResponseClientDto convertedClient = mapper.asResponse(client);
     return populateWithToken(convertedClient);
   }
@@ -75,7 +74,8 @@ public class ClientService extends BaseService<Client> implements UserDetailsSer
 
   public List<ResponseClientDto> search(Map<String, Object> fields) {
     if (fields.containsKey(Client_.USERNAME)) {
-      return List.of(mapper.asResponse(repository.findByUsername(fields.get(Client_.USERNAME).toString())));
+      ResponseClientDto clientDto = mapper.asResponse(repository.findByUsername(fields.get(Client_.USERNAME).toString()));
+      return Objects.isNull(clientDto) ? Collections.emptyList() : List.of(clientDto);
     }
     return searchRepository.searchByFields(fields).stream().map(mapper::asResponse).toList();
   }
@@ -83,6 +83,11 @@ public class ClientService extends BaseService<Client> implements UserDetailsSer
   private ResponseClientDto populateWithToken(ResponseClientDto client) {
       client.setToken(jwtProvider.generateToken(client));
       return client;
+  }
+
+  @Autowired
+  public void setJwtProvider(JwtProvider jwtProvider) {
+    this.jwtProvider = jwtProvider;
   }
 
   @Autowired

@@ -4,8 +4,7 @@ import com.test.crm.api.validators.RegisterClientValidator;
 import com.test.crm.services.ClientService;
 import com.test.crm.services.models.client.CreateClientRequest;
 import com.test.crm.services.models.client.ResponseClientDto;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,21 +19,19 @@ public class AuthController {
   private final ClientService service;
   private final RegisterClientValidator registerClientValidator;
 
-  @InitBinder("registerClientRequest")
+  @InitBinder("сreateClientRequest")
   protected void initBinder(WebDataBinder binder) {
     binder.addValidators(registerClientValidator);
   }
 
-  @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(value = "/login")
   public ResponseEntity<ResponseClientDto> login(@RequestParam String username,
-                                                 @RequestParam String password,
-                                                 HttpServletRequest request) throws ServletException {
-    request.login(username, password);
+                                                 @RequestParam String password) {
     return ResponseEntity.ok(service.login(username, password));
   }
 
   @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<ResponseClientDto> register(@RequestBody CreateClientRequest request) {
+  public ResponseEntity<ResponseClientDto> register(@RequestBody @Valid CreateClientRequest request) {
     return ResponseEntity.ok(service.register(request));
   }
 }

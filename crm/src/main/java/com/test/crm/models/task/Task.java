@@ -1,6 +1,7 @@
 package com.test.crm.models.task;
 
 import com.test.crm.models.BaseEntity;
+import com.test.crm.models.Contact;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -8,13 +9,14 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Setter
 @Getter
 @Entity
 @Table(name = "tasks")
-public class Task extends BaseEntity {
+public class Task extends BaseEntity implements Serializable {
   @Basic
   @Size(max = 2000)
   private String description;
@@ -31,6 +33,7 @@ public class Task extends BaseEntity {
   @Column(name = "created_by")
   private String createdBy;
 
-  @Column(name = "assignee_id")
-  private String assingeeId;
+  @ManyToOne
+  @JoinColumn(name = "assignee_id", referencedColumnName = "id")
+  private Contact assignee;
 }
