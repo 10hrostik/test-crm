@@ -1,7 +1,6 @@
-package com.test.crm.models.client;
+package com.test.crm.models.user;
 
 import com.test.crm.models.BaseEntity;
-import com.test.crm.models.Contact;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,19 +14,13 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "clients")
-public class Client extends BaseEntity implements ClientUserDetails, Serializable {
+@Table(name = "users")
+public class User extends BaseEntity implements SystemUserDetails, Serializable {
   @Column(name = "username", nullable = false)
   private String username;
 
   @Column(name = "password", nullable = false)
   private String password;
-
-  @Column(name = "company_name")
-  private String companyName;
-
-  @Basic
-  private String branch;
 
   @Basic
   private boolean enabled;
@@ -37,10 +30,7 @@ public class Client extends BaseEntity implements ClientUserDetails, Serializabl
 
   @Enumerated(EnumType.STRING)
   @Column(name = "role", nullable = false)
-  private ClientRole role = ClientRole.USER;
-
-  @OneToMany(mappedBy = "client", orphanRemoval = true)
-  private List<Contact> contact;
+  private UserRole role = UserRole.USER;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {

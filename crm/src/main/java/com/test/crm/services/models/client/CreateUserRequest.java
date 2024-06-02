@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CreateClientRequest extends BaseClientDto {
+public class CreateUserRequest extends BaseUserDto {
   @NotEmpty
   @Size(min = 6)
   private String password;

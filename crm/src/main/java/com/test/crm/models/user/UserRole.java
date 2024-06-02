@@ -1,8 +1,8 @@
-package com.test.crm.models.client;
+package com.test.crm.models.user;
 
 import org.springframework.security.core.GrantedAuthority;
 
-public enum ClientRole implements GrantedAuthority {
+public enum UserRole implements GrantedAuthority {
   USER, ADMIN;
 
   @Override

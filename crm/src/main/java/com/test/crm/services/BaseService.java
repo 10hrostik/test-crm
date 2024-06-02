@@ -4,6 +4,8 @@ import com.test.crm.models.BaseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 public abstract class BaseService<T extends BaseEntity> {
 
   public T getExistent(String id) {
@@ -30,6 +32,10 @@ public abstract class BaseService<T extends BaseEntity> {
   @Transactional
   public T update(T entity) {
     return getRepository().save(entity);
+  }
+
+  public List<T> getAll() {
+    return getRepository().findAll();
   }
 
   protected abstract JpaRepository<T, String> getRepository();

@@ -1,7 +1,7 @@
 package com.test.crm.configuration;
 
-import com.test.crm.models.client.Client;
-import com.test.crm.services.models.client.ResponseClientDto;
+import com.test.crm.models.user.User;
+import com.test.crm.services.models.client.ResponseUserDto;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -38,18 +38,18 @@ public class JwtProvider {
         .after(new Date());
   }
 
-  public String generateToken(ResponseClientDto client) {
+  public String generateToken(ResponseUserDto client) {
     Map<String, Object> claims = new HashMap<>();
     claims.put("role", List.of(client.getRole()));
 
     return generateToken(claims, client.getUsername());
   }
 
-  public String generateToken(Client client) {
+  public String generateToken(User user) {
     Map<String, Object> claims = new HashMap<>();
-    claims.put("role", List.of(client.getAuthorities()));
+    claims.put("role", List.of(user.getAuthorities()));
 
-    return generateToken(claims, client.getUsername());
+    return generateToken(claims, user.getUsername());
   }
 
   private String generateToken(Map<String, Object> claims, String credential) {

@@ -1,8 +1,8 @@
 package com.test.crm.api;
 
+import com.test.crm.models.Client;
 import com.test.crm.services.ClientService;
-import com.test.crm.services.models.client.ResponseClientDto;
-import com.test.crm.services.models.client.UpdateClientRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,24 +12,34 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "/secured/v1/clients")
+@RequestMapping("/secured/v1/clients")
 public class ClientController {
 
   private final ClientService service;
 
+  @GetMapping("/all")
+  public ResponseEntity<List<Client>> getAll() {
+    return ResponseEntity.ok(service.getAll());
+  }
+
+  @PostMapping
+  public ResponseEntity<Client> create(@RequestBody @Valid Client client) {
+    return ResponseEntity.ok(service.save(client));
+  }
+
   @PostMapping("/search")
-  public ResponseEntity<List<ResponseClientDto>> search(@RequestBody Map<String, Object> searchRequest) {
+  public ResponseEntity<List<Client>> search(@RequestBody Map<String, Object> searchRequest) {
     return ResponseEntity.ok(service.search(searchRequest));
   }
 
-  @PatchMapping("/deactivate/{id}")
-  public ResponseEntity<?> deactivate(@PathVariable String id) {
-    service.deactivate(id);
-    return ResponseEntity.noContent().build();
+  @PutMapping()
+  public ResponseEntity<Client> update(@RequestBody Client client) {
+    return ResponseEntity.ok(service.update(client));
   }
 
-  @PutMapping("/{id}")
-  public ResponseEntity<ResponseClientDto> update(@RequestBody UpdateClientRequest request, @PathVariable String id) {
-    return ResponseEntity.ok(service.update(request, id));
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> delete(@PathVariable String id) {
+    service.delete(id);
+    return ResponseEntity.noContent().build();
   }
 }

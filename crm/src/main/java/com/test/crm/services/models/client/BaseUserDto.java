@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public abstract class BaseClientDto {
+public abstract class BaseUserDto {
   @NotEmpty
   @Size(min = 5)
   private String username;

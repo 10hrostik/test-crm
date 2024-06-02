@@ -1,8 +1,8 @@
-package com.test.crm.models.client;
+package com.test.crm.models.user;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
-public interface ClientUserDetails extends UserDetails {
+public interface SystemUserDetails extends UserDetails {
   @Override
   default boolean isAccountNonExpired() {
     return true;

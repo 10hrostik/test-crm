@@ -1,6 +1,6 @@
 package com.test.crm.repositories.clients;
 
-import com.test.crm.models.client.Client;
+import com.test.crm.models.Client;
 import com.test.crm.repositories.BaseSearchRepository;
 import org.springframework.stereotype.Repository;
 

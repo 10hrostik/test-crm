@@ -1,6 +1,5 @@
 package com.test.crm.models;
 
-import com.test.crm.models.client.Client;
 import com.test.crm.models.task.Task;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -30,10 +29,10 @@ public class Contact extends BaseEntity {
   private List<Task> tasks;
 
   @NotEmpty
-  @Column(name = "target_client_id")
-  private String targetClientId;
-
   @ManyToOne
-  @JoinColumn(name = "client_id", referencedColumnName = "id")
+  @JoinColumn(name = "client_id")
   private Client client;
+
+  @Column(name = "user_id")
+  private String user;
 }

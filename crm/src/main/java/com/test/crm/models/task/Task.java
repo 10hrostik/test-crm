@@ -24,6 +24,9 @@ public class Task extends BaseEntity implements Serializable {
   @Basic
   private LocalDateTime deadLine;
 
+  @Basic
+  private boolean deadLineNotified = false;
+
   @NotNull
   @Enumerated(EnumType.STRING)
   @Column(name = "status")

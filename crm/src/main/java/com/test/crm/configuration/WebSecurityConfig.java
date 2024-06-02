@@ -1,6 +1,6 @@
 package com.test.crm.configuration;
 
-import com.test.crm.services.ClientService;
+import com.test.crm.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -55,7 +55,7 @@ public class WebSecurityConfig {
   }
 
   @Bean
-  public ClientService authenticationService() {
-    return new ClientService();
+  public UserService authenticationService() {
+    return new UserService();
   }
 }
