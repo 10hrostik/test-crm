@@ -1,5 +1,7 @@
 package com.test.crm.models.user;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.test.crm.models.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -15,6 +17,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "users")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class User extends BaseEntity implements SystemUserDetails, Serializable {
   @Column(name = "username", nullable = false)
   private String username;
@@ -23,7 +26,7 @@ public class User extends BaseEntity implements SystemUserDetails, Serializable 
   private String password;
 
   @Basic
-  private boolean enabled;
+  private boolean enabled = true;
 
   @Column(name = "registration_date")
   private LocalDateTime registrationDate = LocalDateTime.now();

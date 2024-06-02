@@ -17,7 +17,7 @@ public class ClientController {
 
   private final ClientService service;
 
-  @GetMapping("/all")
+  @GetMapping(value = "/all")
   public ResponseEntity<List<Client>> getAll() {
     return ResponseEntity.ok(service.getAll());
   }
@@ -27,7 +27,7 @@ public class ClientController {
     return ResponseEntity.ok(service.save(client));
   }
 
-  @PostMapping("/search")
+  @PostMapping(value = "/search")
   public ResponseEntity<List<Client>> search(@RequestBody Map<String, Object> searchRequest) {
     return ResponseEntity.ok(service.search(searchRequest));
   }
@@ -37,7 +37,7 @@ public class ClientController {
     return ResponseEntity.ok(service.update(client));
   }
 
-  @DeleteMapping("/{id}")
+  @DeleteMapping(value = "/{id}")
   public ResponseEntity<Void> delete(@PathVariable String id) {
     service.delete(id);
     return ResponseEntity.noContent().build();

@@ -27,6 +27,11 @@ public class TaskController {
     return ResponseEntity.ok(service.getAssingedTasks(assingeeId));
   }
 
+  @GetMapping(value =  "/all")
+  public ResponseEntity<List<Task>> getAll() {
+    return ResponseEntity.ok(service.getAll());
+  }
+
   @PutMapping
   public ResponseEntity<Task> update(@RequestBody @Valid Task task) {
     return ResponseEntity.ok(service.update(task));

@@ -5,6 +5,7 @@
     left: -60px;
     top: 55px;
     transition: left .2s ease;
+    background-color: #ccd6e3;
     position: fixed;
     z-index: 3;
 }

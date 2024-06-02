@@ -1,6 +1,7 @@
 .topBar {
     height: 55px;
     width: 100%;
+    background-color: #ccd6e3;
 }
 .topBarImage {
     background-color: transparent;

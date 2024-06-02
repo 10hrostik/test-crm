@@ -18,13 +18,14 @@ create table contacts(
     surname varchar(25),
     phone varchar(25),
     email varchar(32),
-    user_id varchar(40) references users(id),
+    created_by varchar(40) references users(id),
     client_id varchar(40) references clients(id)
 );
 create table tasks(
     id varchar(40) primary key,
     description varchar(2000),
     dead_line timestamp,
+    dead_line_notified boolean,
     status varchar(16),
     created_by varchar(40) references users(id),
     assignee_id varchar(40) references contacts(id)

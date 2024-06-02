@@ -22,14 +22,14 @@ public class ContactController {
     return ResponseEntity.ok(service.save(contact));
   }
 
-  @PostMapping("/search")
+  @PostMapping(value = "/search")
   public ResponseEntity<List<Contact>> search(@RequestBody Map<String, Object> searchRequest) {
     return ResponseEntity.ok(service.search(searchRequest));
   }
 
-  @GetMapping
-  public ResponseEntity<List<Contact>> getClientContacts(@RequestParam String clientId) {
-    return ResponseEntity.ok(service.getListByClient(clientId));
+  @GetMapping(value = "/all")
+  public ResponseEntity<List<Contact>> getClientContacts() {
+    return ResponseEntity.ok(service.getAll());
   }
 
   @PutMapping
@@ -37,7 +37,7 @@ public class ContactController {
     return ResponseEntity.ok(service.update(contact));
   }
 
-  @DeleteMapping("/{id}")
+  @DeleteMapping(value = "/{id}")
   public ResponseEntity<?> delete(@PathVariable String id) {
     service.delete(id);
     return ResponseEntity.noContent().build();

@@ -15,7 +15,7 @@ public class UserController {
 
   private final UserService service;
 
-  @PatchMapping("/deactivate/{id}")
+  @PatchMapping(value = "/deactivate/{id}")
   public ResponseEntity<?> deactivate(@PathVariable String id) {
     service.deactivate(id);
     return ResponseEntity.noContent().build();

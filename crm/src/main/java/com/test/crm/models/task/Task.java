@@ -1,5 +1,8 @@
 package com.test.crm.models.task;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.test.crm.models.BaseEntity;
 import com.test.crm.models.Contact;
 import jakarta.persistence.*;
@@ -16,15 +19,16 @@ import java.time.LocalDateTime;
 @Getter
 @Entity
 @Table(name = "tasks")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Task extends BaseEntity implements Serializable {
   @Basic
   @Size(max = 2000)
   private String description;
 
-  @Basic
+  @Column(name = "dead_line")
   private LocalDateTime deadLine;
 
-  @Basic
+  @Column(name = "dead_line_notified")
   private boolean deadLineNotified = false;
 
   @NotNull
@@ -36,6 +40,7 @@ public class Task extends BaseEntity implements Serializable {
   @Column(name = "created_by")
   private String createdBy;
 
+  @JsonManagedReference
   @ManyToOne
   @JoinColumn(name = "assignee_id", referencedColumnName = "id")
   private Contact assignee;
