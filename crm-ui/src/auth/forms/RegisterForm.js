@@ -2,16 +2,8 @@ import React from "react";
 import apiServer from "../../utils/ApiServer";
 import generateStatusTag from "../../utils/StatusTag";
 
-function validateEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-function validatePhone(phone) {
-  return phone.length === 10;
-}
-
-function validatePassword(password) {
-  if (password.length < 6) {
+function validatePassword(password, confirmPassword) {
+  if (password.length < 6 || password !== confirmPassword) {
     return false;
   }
   return /\d/.test(password);

@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,5 +34,10 @@ public class AuthController {
   @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ResponseClientDto> register(@RequestBody @Valid CreateClientRequest request) {
     return ResponseEntity.ok(service.register(request));
+  }
+
+  @GetMapping(value = "/check-login")
+  public ResponseEntity<ResponseClientDto> checkLogin(Authentication authentication) {
+    return ResponseEntity.ok(service.checkLogin(authentication));
   }
 }

@@ -23,4 +23,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     ErrorResponse errorResponse = new ErrorResponse(ErrorMessages.USERNAME_ALREADY_EXISTS, List.of(e.getMessage()));
     return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(errorResponse);
   }
+
+  @ExceptionHandler(value = NotAuthenticatedException.class)
+  public ResponseEntity<ErrorResponse> handleNotAuthenticatedException(NotAuthenticatedException e) {
+    ErrorResponse errorResponse = new ErrorResponse(ErrorMessages.NOT_AUTH, List.of(e.getMessage()));
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+  }
 }

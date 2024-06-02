@@ -39,6 +39,7 @@ function LoginForm(props) {
                  type="password" placeholder={'password'} name="password" required></input>
           <br/>
           <b onClick={handleAuthLayout} className={'forgotPasswordLabel'}>Sign up</b>
+          <br/>
           <button id="loginButton" className={'loginButton'} type="submit">Login</button>
         </form>
       </div>

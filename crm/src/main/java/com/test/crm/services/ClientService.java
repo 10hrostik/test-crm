@@ -1,6 +1,7 @@
 package com.test.crm.services;
 
 import com.test.crm.configuration.JwtProvider;
+import com.test.crm.exceptions.NotAuthenticatedException;
 import com.test.crm.exceptions.UserExistsException;
 import com.test.crm.models.client.Client;
 import com.test.crm.models.client.Client_;
@@ -13,6 +14,7 @@ import com.test.crm.services.models.client.UpdateClientRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,8 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
-import static com.test.crm.exceptions.ErrorMessages.INVALID_CREDENTIALS;
-import static com.test.crm.exceptions.ErrorMessages.USERNAME_ALREADY_EXISTS;
+import static com.test.crm.exceptions.ErrorMessages.*;
 
 @Service
 @Primary
@@ -78,6 +79,15 @@ public class ClientService extends BaseService<Client> implements UserDetailsSer
       return Objects.isNull(clientDto) ? Collections.emptyList() : List.of(clientDto);
     }
     return searchRepository.searchByFields(fields).stream().map(mapper::asResponse).toList();
+  }
+
+  public ResponseClientDto checkLogin(Authentication authentication) {
+    if (authentication.isAuthenticated()) {
+      Client client = (Client) loadUserByUsername(authentication.getPrincipal().toString());
+      ResponseClientDto convertedClient = mapper.asResponse(client);
+      return populateWithToken(convertedClient);
+    }
+    throw new NotAuthenticatedException(NOT_AUTH);
   }
 
   private ResponseClientDto populateWithToken(ResponseClientDto client) {

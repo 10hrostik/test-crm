@@ -1,0 +1,48 @@
+.topBarButton {
+    height: 100%;
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    width: 60px;
+}
+.sideBarImageButton {
+    width: 100%;
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    margin-top: 5px;
+    cursor: pointer;
+}
+.sideBarImageProfileButton {
+    width: 100%;
+    height: 11.66%;
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+.userProfileListBottomButton {
+    margin-right: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 55px;
+    height: 55px;
+}
+.arrowBlockImage {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 5%;
+}
+.topBarButton:hover,
+.configLabel:hover,
+.sideBarImageProfileButton:hover,
+.sideBarImageButton:hover {
+    background-color: #123131;
+}
+.userProfileListBottomButton:hover,
+.arrowBlockImage:hover,
+.userProfileGalleryImage:hover {
+    background-color: #182323CC;
+}
