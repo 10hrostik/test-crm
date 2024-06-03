@@ -1,7 +1,5 @@
 package com.test.crm.models.task;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.test.crm.models.BaseEntity;
 import com.test.crm.models.Contact;
 import jakarta.persistence.*;
@@ -18,7 +16,6 @@ import java.time.LocalDateTime;
 @Getter
 @Entity
 @Table(name = "tasks")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Task extends BaseEntity implements Serializable {
   @Basic
   @Size(max = 2000)

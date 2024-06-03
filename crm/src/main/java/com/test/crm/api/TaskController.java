@@ -28,7 +28,7 @@ public class TaskController {
     return ResponseEntity.ok(service.getAssingedTasks(assingeeId));
   }
 
-  @GetMapping(value =  "/all")
+  @GetMapping(value =  "/all", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<Task>> getAll() {
     return ResponseEntity.ok(service.getAll());
   }

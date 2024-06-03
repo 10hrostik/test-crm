@@ -13,5 +13,5 @@ public interface TaskRepository extends JpaRepository<Task, String> {
 
   List<Task> findAllByAssigneeId(String assignee);
 
-  List<Task> findAllByDeadLineBefore(LocalDateTime deadLine, Pageable pageable);
+  List<Task> findAllByDeadLineBeforeAndDeadLineNotifiedIsFalse(LocalDateTime deadLine, Pageable pageable);
 }

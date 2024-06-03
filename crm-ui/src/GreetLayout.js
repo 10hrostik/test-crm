@@ -10,6 +10,7 @@ function GreetLayout(props) {
   const setUser = props.setUser;
   const [tasks, setTasks] = useState([]);
   const [contacts, setContacts] = useState([]);
+  const [clients, setClients] = useState([]);
 
   useEffect(() => {
       setUser(user);
@@ -24,6 +25,18 @@ function GreetLayout(props) {
             .catch(e => console.log(e));
         setTasks(tasks);
       })();
+
+    (async() => {
+      const clients = await fetch(apiServer + '/secured/v1/clients/all', {
+        headers: {
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+        },
+        method: "GET"
+      })
+          .then(response => response.json())
+          .catch(e => console.log(e));
+      setClients(clients);
+    })();
 
       (async() => {
         const contacts = await fetch(apiServer + '/secured/v1/contacts/all', {
@@ -55,6 +68,10 @@ function GreetLayout(props) {
     return contacts.map(contact => <ul key={contact.id}>{contact.name + " " + contact.surname}</ul>)
   }
 
+  const getClients = () => {
+    return clients.map(client => <ul key={client.id}>{client.companyName + " " + client.branch}</ul>)
+  }
+
   return (
       <>
         <div id='topBar' className='topBar'>
@@ -83,9 +100,21 @@ function GreetLayout(props) {
           textAlign: "left"
         }}>
           <legend style={{fontWeight: "bold"}}>Contacts</legend>
-          <div id="taskLayout" className="taskLayout">
+          <div id="contactLayout" className="taskLayout">
             <li id="taskTable">
               {getContacts()}
+            </li>
+          </div>
+        </fieldset>
+        <fieldset style={{
+          width: "33%",
+          border: "2.5px solid black",
+          textAlign: "left"
+        }}>
+          <legend style={{fontWeight: "bold"}}>Clients</legend>
+          <div id="clientLayout" className="taskLayout">
+            <li id="taskTable">
+              {getClients()}
             </li>
           </div>
         </fieldset>

@@ -24,7 +24,7 @@ public class TaskScheduleService {
     PageRequest pageable = PageRequest.of(0, BATCH_SIZE);
     int responseSize;
     do {
-      List<Task> tasks = repository.findAllByDeadLineBefore(LocalDateTime.now().minusHours(8), pageable);
+      List<Task> tasks = repository.findAllByDeadLineBeforeAndDeadLineNotifiedIsFalse(LocalDateTime.now().minusHours(8), pageable);
       tasks.forEach(task -> {
         messagingTemplate.convertAndSend("/task/notify", task);
         task.setDeadLineNotified(true);
