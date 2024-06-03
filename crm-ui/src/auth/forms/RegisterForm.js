@@ -15,7 +15,7 @@ function RegisterForm(props) {
 
   const buildRequest = (username, password, confirmPassword) => {
     let registerData = {};
-    if (validatePassword(password)) {
+    if (validatePassword(password, confirmPassword)) {
       registerData.username = username;
       registerData.password = password;
       registerData.confirmPassword = confirmPassword;

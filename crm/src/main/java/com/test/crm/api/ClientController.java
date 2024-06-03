@@ -18,6 +18,7 @@ public class ClientController {
 
   private final ClientService service;
 
+  //pagination implementation needed here
   @GetMapping(value = "/all")
   public ResponseEntity<List<Client>> getAll() {
     return ResponseEntity.ok(service.getAll());
@@ -28,6 +29,7 @@ public class ClientController {
     return ResponseEntity.ok(service.save(client));
   }
 
+  //pagination implementation needed here
   @PostMapping(value = "/search")
   public ResponseEntity<List<Client>> search(@RequestBody Map<String, Object> searchRequest) {
     return ResponseEntity.ok(service.search(searchRequest));

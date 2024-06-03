@@ -23,11 +23,13 @@ public class ContactController {
     return ResponseEntity.ok(service.save(contact));
   }
 
+  //pagination implementation needed here
   @PostMapping(value = "/search")
   public ResponseEntity<List<Contact>> search(@RequestBody Map<String, Object> searchRequest) {
     return ResponseEntity.ok(service.search(searchRequest));
   }
 
+  //pagination implementation needed here
   @GetMapping(value = "/all")
   public ResponseEntity<List<Contact>> getClientContacts() {
     return ResponseEntity.ok(service.getAll());
