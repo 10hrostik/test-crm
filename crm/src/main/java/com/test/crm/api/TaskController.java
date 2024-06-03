@@ -5,6 +5,7 @@ import com.test.crm.services.TaskService;
 import com.test.crm.services.models.UpdateTaskStatusRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,9 +18,9 @@ public class TaskController {
 
   private final TaskService service;
 
-  @PostMapping
-  public ResponseEntity<Task> create(@RequestBody @Valid Task task, @RequestParam String clientId) {
-    return ResponseEntity.ok(service.create(task, clientId));
+  @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Task> create(@RequestBody @Valid Task task) {
+    return ResponseEntity.ok(service.save(task));
   }
 
   @GetMapping
@@ -42,9 +43,9 @@ public class TaskController {
     return ResponseEntity.ok(service.updateStatus(request));
   }
 
-  @PatchMapping("/assign")
-  public ResponseEntity<Task> assignTask(@RequestBody @Valid Task task, @RequestParam String contactId) {
-    return ResponseEntity.ok(service.assignTask(task, contactId));
+  @PatchMapping("/assign/{id}")
+  public ResponseEntity<Task> assignTask(@PathVariable String id, @RequestParam String contactId) {
+    return ResponseEntity.ok(service.assignTask(id, contactId));
   }
 
   @DeleteMapping("/{id}")

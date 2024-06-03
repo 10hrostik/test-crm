@@ -20,12 +20,6 @@ public class TaskService extends BaseService<Task> {
   private final TaskRepository repository;
   private final SimpMessagingTemplate messagingTemplate;
 
-  @Transactional
-  public Task create(Task task, String createdBy) {
-    task.setCreatedBy(createdBy);
-    return save(task);
-  }
-
   public List<Task> getAssingedTasks(String assingeeId) {
     return repository.findAllByAssigneeId(assingeeId);
   }
@@ -39,8 +33,8 @@ public class TaskService extends BaseService<Task> {
   }
 
   @Transactional
-  public Task assignTask(Task task, String contactId) {
-    Task existent = getExistent(task.getId());
+  public Task assignTask(String taskId, String contactId) {
+    Task existent = getExistent(taskId);
     existent.setAssignee(contactService.getExistent(contactId));
     TransactionUtils.afterCommit(() -> messagingTemplate.convertAndSend("/assign", existent));
     return existent;

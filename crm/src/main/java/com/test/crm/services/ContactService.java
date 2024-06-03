@@ -20,10 +20,6 @@ public class ContactService extends BaseService<Contact> {
   private final ContactRepository repository;
   private final ContactSearchRepository searchRepository;
 
-  public List<Contact> getListByClient(String clientId) {
-    return repository.findByClientId(clientId);
-  }
-
   public List<Contact> search(Map<String, Object> fields) {
     if (fields.containsKey(Contact_.ID)) {
       Contact contact = getExistent(fields.get(Contact_.ID).toString());

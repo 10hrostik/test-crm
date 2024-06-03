@@ -1,7 +1,6 @@
 package com.test.crm.models.task;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.test.crm.models.BaseEntity;
 import com.test.crm.models.Contact;
@@ -40,7 +39,6 @@ public class Task extends BaseEntity implements Serializable {
   @Column(name = "created_by")
   private String createdBy;
 
-  @JsonManagedReference
   @ManyToOne
   @JoinColumn(name = "assignee_id", referencedColumnName = "id")
   private Contact assignee;

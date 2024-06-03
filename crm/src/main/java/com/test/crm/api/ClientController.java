@@ -4,6 +4,7 @@ import com.test.crm.models.Client;
 import com.test.crm.services.ClientService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,7 @@ public class ClientController {
     return ResponseEntity.ok(service.getAll());
   }
 
-  @PostMapping
+  @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Client> create(@RequestBody @Valid Client client) {
     return ResponseEntity.ok(service.save(client));
   }

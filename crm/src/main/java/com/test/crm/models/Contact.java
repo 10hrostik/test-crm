@@ -36,6 +36,7 @@ public class Contact extends BaseEntity {
   @JoinColumn(name = "client_id")
   private Client client;
 
+  @NotEmpty
   @Column(name = "created_by")
   private String createdBy;
 }

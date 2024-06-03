@@ -4,6 +4,7 @@ import com.test.crm.models.Contact;
 import com.test.crm.services.ContactService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,7 @@ public class ContactController {
 
   private final ContactService service;
 
-  @PostMapping
+  @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Contact> create(@RequestBody @Valid Contact contact) {
     return ResponseEntity.ok(service.save(contact));
   }
